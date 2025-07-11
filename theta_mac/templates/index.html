@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThetaMac</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">ThetaMac</h1>
+        <form action="/start" method="post">
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Operations</label>
+                <div class="flex justify-around">
+                    <label class="flex items-center"><input type="checkbox" name="operations" value="+" class="mr-2" checked> +</label>
+                    <label class="flex items-center"><input type="checkbox" name="operations" value="-" class="mr-2" checked> -</label>
+                    <label class="flex items-center"><input type="checkbox" name="operations" value="*" class="mr-2"> *</label>
+                    <label class="flex items-center"><input type="checkbox" name="operations" value="/" class="mr-2"> /</label>
+                </div>
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Range</label>
+                <div class="flex items-center justify-center">
+                    <input type="number" name="min_range" value="1" min="1" class="shadow appearance-none border rounded w-24 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-center">
+                    <span class="mx-4 text-gray-700">to</span>
+                    <input type="number" name="max_range" value="10" min="1" class="shadow appearance-none border rounded w-24 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-center">
+                </div>
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Mode</label>
+                <div class="flex justify-around">
+                    <label class="flex items-center"><input type="radio" name="mode" value="normal" class="mr-2" checked onchange="toggleTraderSubMode()"> Normal</label>
+                    <label class="flex items-center"><input type="radio" name="mode" value="trader" class="mr-2" onchange="toggleTraderSubMode()"> Trader</label>
+                </div>
+            </div>
+            <div id="trader_sub_mode_group" class="mb-6 hidden">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Trader Sub-Mode</label>
+                <div class="flex justify-around">
+                    <label class="flex items-center"><input type="radio" name="trader_sub_mode" value="tv" class="mr-2"> TV Math (1dp)</label>
+                    <label class="flex items-center"><input type="radio" name="trader_sub_mode" value="tau" class="mr-2" checked> Tau Math (2dp)</label>
+                </div>
+            </div>
+            <div class="mb-6">
+                <label for="duration" class="block text-gray-700 text-sm font-bold mb-2">Game Time</label>
+                <select name="duration" id="duration" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="30">30 seconds</option>
+                    <option value="60" selected>60 seconds</option>
+                    <option value="120">120 seconds</option>
+                </select>
+            </div>
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Start Game</button>
+        </form>
+        <div class="text-center mt-6">
+            <a href="/scores" class="text-blue-500 hover:text-blue-800">View Scores</a>
+        </div>
+    </div>
+    <script>
+        function toggleTraderSubMode() {
+            const traderSubModeGroup = document.getElementById('trader_sub_mode_group');
+            if (document.querySelector('input[name="mode"]:checked').value === 'trader') {
+                traderSubModeGroup.classList.remove('hidden');
+            } else {
+                traderSubModeGroup.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
